@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+{% block title %}Index page{% endblock %}
+{% block content %}
+    <nav class="navbar sticky-top navbar-default">
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="nav navbar-nav">
+                <li class="nav-item activate">
+                    <a class="nav-link" href="{{ url_for('user_login') }}">Login</a>
+                </li>
+                <li class="nav-item activate">
+                    <a class="nav-link" href="{{ url_for('register_user') }}">Sign up</a>
+                </li>
+                <li class="nav-item activate">
+                    <a class="nav-link" type="button" id="show_stats" href="#">Vote statistics</a>
+                </li>
+                {% if username %}
+                    <li class="nav-item activate logout">
+                        <a href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <span id="signed_in_as" class="navbar-text pull-right"></span>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <h1>Star Wars universe planets</h1>
+        <button type='button' class="btn btn-primary button-margin" id='btn_prev'>Previous</button>
+        <button type='button' class="btn btn-primary button-margin" id='btn_next'>Next</button>
+        <div class="my-5">
+            <table class="table table-bordered col-md-12 planet-list text-white" id="planets_table">
+                <thead>
+                <tr>
+                    <th>name</th>
+                    <th scope="col">Diameter</th>
+                    <th scope="col">Climate</th>
+                    <th scope="col">Terrain</th>
+                    <th scope="col">Surface Water Percentage</th>
+                    <th scope="col">Population</th>
+                    <th scope="col">Residents</th>
+                </tr>
+                </thead>
+                <tbody id="table_body">
+
+                </tbody>
+            </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="residentsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered resident-detail">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Height</th>
+                                    <th scope="col">Mass</th>
+                                    <th scope="col">Hair colour</th>
+                                    <th scope="col">Skin colour</th>
+                                    <th scope="col">Eye colour</th>
+                                    <th scope="col">Birth year</th>
+                                    <th scope="col">Gender</th>
+                                </tr>
+                                </thead>
+                                <tbody id="residents_detail_modal">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="voteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Vote results</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered vote-detail">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Planet name</th>
+                                    <th scope="col">Vote count</th>
+                                </tr>
+                                </thead>
+                                <tbody id="vote_detail_modal">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

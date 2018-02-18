@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Index page{% endblock %}
+{% block content %}
+    <h1>Star Wars universe planets</h1>
+    <form method="POST" action="{{ url_for('register_user') }}">
+        <label>Username:</label>
+        <input type="text"
+               placeholder="Enter username"
+               name="username"
+               required>
+
+        <label>Password:</label>
+        <input type="password"
+               placeholder="Enter password"
+               name="password"
+               required>
+        <label>Repeat Password</label>
+        <input type="password"
+               placeholder="Repeat password"
+               name="password_repeat"
+               required>
+        <a href="{{ url_for('index') }}">
+            <button type="button">Cancel</button>
+        </a>
+        <button type="submit">Register</button>
+    </form>
+{% endblock %}
