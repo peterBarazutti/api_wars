@@ -128,14 +128,21 @@ function main() {
 
 
 function createWebpage(api_url) {
+    $('#btn_prev').prop('disabled', false);
+    $('#btn_next').prop('disabled', false);
     $('#table_body').empty();
     $('#table_head').empty();
     $.getJSON(api_url, function (response) {
-            console.log(response);
             var prev_url = response['previous'];
             sessionStorage.setItem(['prev_url'], prev_url);
+            if (prev_url === null){
+                $('#btn_prev').prop('disabled', true);
+            }
             var next_url = response['next'];
             sessionStorage.setItem(['next_url'], next_url);
+            if (next_url === null){
+                $('#btn_next').prop('disabled', true);
+            }
             var data = response['results'];
             $('#residentsModal').modal({show: false});
             $('#voteModal').modal({show: false});
