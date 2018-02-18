@@ -37,10 +37,6 @@ function create_table(data, user_name) {
 
 function voteButton(user_name, planet_data) {
     if (user_name != "Guest") {
-        // console.log(planet_data);
-        // let url = planet_data['url'].slice(0,-1);
-        // let planet_id = url.substring(url.lastIndexOf('/') + 1);
-        // return '<td><button class=\"btn-vote-planet\" type=\"button\" id=\"btn-vote-planet'+ planet_id +'\">Button</button></td>'
         let url = planet_data['url'];
         return '<td><button class=\"btn-vote-planet btn btn-warning\" type=\"button\" data-url=\"' + url + '\">Button</button></td>'
     } else {
