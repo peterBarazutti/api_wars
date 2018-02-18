@@ -3,10 +3,22 @@ import psycopg2
 from time import time
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
+import urllib
+import os
 
 app = Flask(__name__)
 
 app.secret_key = 'kifli'
+
+urllib.parse.uses_netloc.append('postgres')
+url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+connection = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
 
 
 @app.route('/')
