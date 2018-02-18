@@ -4,7 +4,7 @@ function create_table(data, user_name) {
         item.push(
             '<tr>' +
             '<td>' + planet['name'] + '</td>' +
-            '<td>' + formatNumber(planet['diameter']) + ' km' + '</td>' +
+            '<td>' + formattedDiameter(planet['diameter']) + '</td>' +
             '<td>' + planet['climate'] + '</td>' +
             '<td>' + planet['terrain'] + '</td>' +
             '<td>' + formattedWaterSurface(planet['surface_water']) + '</td>' +
@@ -63,6 +63,15 @@ function formattedWaterSurface(evalString) {
         return evalString + '%'
     } else {
         return evalString
+    }
+}
+
+
+function formattedDiameter(diameter) {
+    if (diameter === 'unknown'){
+        return 'unknown'
+    } else {
+        return formatNumber(diameter) + ' km'
     }
 }
 
