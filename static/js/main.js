@@ -115,9 +115,6 @@ function main() {
         createWebpage(sessionStorage.getItem(['prev_url']));
     });
     $('#btn_next').click(function () {
-        if (sessionStorage.getItem(['next_url']) == null) {
-            document.getElementById('btn_next').disabled = true;
-        }
         createWebpage(sessionStorage.getItem(['next_url']));
     });
     $('#show_stats').click(function () {
