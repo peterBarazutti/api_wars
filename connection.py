@@ -27,35 +27,24 @@ def get_connection_string():
         raise KeyError('Some necessary environment variable(s) are not defined')
 
 
-# def establish_connection(connection_data=None):
-#     """
-#     Create a database connection based on the :connection_data: parameter
-#
-#     :connection_data: Connection string attributes
-#
-#     :returns: psycopg2.connection
-#     """
-#     try:
-#         urllib.parse.uses_netloc.append('postgres')
-#         url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
-#         connection = psycopg2.connect(
-#             database=url.path[1:],
-#             user=url.username,
-#             password=url.password,
-#             host=url.hostname,
-#             port=url.port
-#         )
-#         connection.autocommit = True
-#     except psycopg2.DatabaseError as exception:
-#         print('Database connection problem')
-#         raise exception
-#     return connection
+def establish_connection(connection_data=None):
+    """
+    Create a database connection based on the :connection_data: parameter
 
+    :connection_data: Connection string attributes
 
-def open_database():
+    :returns: psycopg2.connection
+    """
     try:
-        connection_string = get_connection_string()
-        connection = psycopg2.connect(connection_string)
+        urllib.parse.uses_netloc.append('postgres')
+        url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+        connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
         connection.autocommit = True
     except psycopg2.DatabaseError as exception:
         print('Database connection problem')
@@ -63,9 +52,20 @@ def open_database():
     return connection
 
 
+# def open_database():
+#     try:
+#         connection_string = get_connection_string()
+#         connection = psycopg2.connect(connection_string)
+#         connection.autocommit = True
+#     except psycopg2.DatabaseError as exception:
+#         print('Database connection problem')
+#         raise exception
+#     return connection
+
+
 def connection_handler(function):
     def wrapper(*args, **kwargs):
-        connection = open_database()
+        connection = establish_connection()
         # we set the cursor_factory parameter to return with a RealDictCursor cursor (cursor which provide dictionaries)
         dict_cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         ret_value = function(dict_cur, *args, **kwargs)
