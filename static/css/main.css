@@ -1,7 +1,7 @@
 body {
     margin:0;
     padding:0;
-    background:url("http://0.0.0.0:8000/static/img/death_star_dark.jpg") no-repeat center center fixed;
+    background:url("https://peter-barazutti-api-wars.herokuapp.com/static/img/death_star_dark.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
