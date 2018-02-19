@@ -138,7 +138,7 @@ function main() {
     });
     $('#show_stats').click(function () {
         $('#vote_detail_modal').empty();
-        $.getJSON('http://0.0.0.0:8000/vote-stats', function (response) {
+        $.getJSON('https://peter-barazutti-api-wars.herokuapp.com/vote-stats', function (response) {
             showVoteStats(response);
         })
     })
