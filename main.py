@@ -11,7 +11,8 @@ app.secret_key = 'kifli'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    username ='Guest'
+    return render_template('index.html', username=username)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -74,8 +75,7 @@ def vote_planet():
 @app.route('/vote-stats')
 def vote_statistics():
     vote_stats = data_manager.get_vote_stats()
-    return {'planet_name': 'Geonosis',
-                   'count': 1}
+    return jsonify(vote_stats)
 
 
 if __name__ == '__main__':
