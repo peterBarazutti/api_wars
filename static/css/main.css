@@ -1,11 +1,11 @@
 body {
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%),
-    url('http://0.0.0.0:8000/static/img/death_star.png');
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: black;
+    margin:0;
+    padding:0;
+    background:url("http://0.0.0.0:8000/static/img/death_star_dark.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .button-margin {

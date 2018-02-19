@@ -13,13 +13,16 @@
                 <li class="nav-item activate">
                     <a class="nav-link" type="button" id="show_stats" href="#">Vote statistics</a>
                 </li>
-                {% if username %}
+
+                {% if username != 'Guest' %}
+                    <span class="navbar-text mr-auto">Signed in as {{ username }}</span>
                     <li class="nav-item activate logout">
                         <a href="{{ url_for('logout') }}">Logout</a>
                     </li>
+                {%  else %}
+                    <span class="navbar-text mr-auto">Guest</span>
                 {% endif %}
             </ul>
-            <span id="signed_in_as" class="navbar-text pull-right"></span>
         </div>
     </nav>
     <div class="container-fluid">

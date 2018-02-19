@@ -128,9 +128,9 @@ function main() {
     });
     $('#show_stats').click(function () {
         $('#voteModal').modal('show');
-        $.getJSON('http://0.0.0.0:8000/vote-stats'), function (response) {
+        $.getJSON('http://0.0.0.0:8000/vote-stats', function (response) {
             console.log(response);
-        }
+        })
     })
     createWebpage(default_url);
 }
@@ -155,19 +155,7 @@ function createWebpage(api_url) {
             var data = response['results'];
             $('#residentsModal').modal({show: false});
             $('#voteModal').modal({show: false});
-            if (sessionStorage.getItem("username") === null) {
-                sessionStorage.setItem("username", "Guest")
-            }
-            $('#btn-login').click(function () {
-                let user_name = $('#login_username').val();
-                sessionStorage.setItem("username", user_name);
-            });
-            $('.logout').click(function () {
-                sessionStorage.clear();
-            })
-            let user_name = sessionStorage.getItem("username");
-            $('#signed_in_as').text('Signed in as ' + user_name);
-            create_table(data, user_name);
+            create_table(data);
         }
     )
 }
