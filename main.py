@@ -75,7 +75,7 @@ def vote_planet():
 @app.route('/vote-stats')
 def vote_statistics():
     vote_stats = data_manager.get_vote_stats()
-    return '{"planet_name": "Geonosis", "count": "szomorú2"}'
+    return jsonify(vote_stats)
 
 
 if __name__ == '__main__':

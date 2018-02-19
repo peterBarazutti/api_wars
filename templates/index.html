@@ -15,12 +15,16 @@
                 </li>
 
                 {% if username != 'Guest' %}
-                    <span class="navbar-text mr-auto">Signed in as {{ username }}</span>
+                    <li class="nav-item mr-auto">
+                        <span class="navbar-text username">Signed in as {{ username }}</span>
+                    </li>
                     <li class="nav-item activate logout">
                         <a href="{{ url_for('logout') }}">Logout</a>
                     </li>
-                {%  else %}
-                    <span class="navbar-text mr-auto">Guest</span>
+                {% else %}
+                    <li class="nav-item mr-auto">
+                        <span class="navbar-text ml-auto username">Guest</span>
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -103,6 +107,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="vote_detail_modal">
+
                                 </tbody>
                             </table>
                         </div>

@@ -21,7 +21,6 @@ function create_table(data, user_name) {
     });
     $(".btn-vote-planet").click(function (clicked_button) {
         let api_url = clicked_button.target.dataset.url;
-        console.log(api_url);
         $.getJSON(api_url, function (response) {
             let planet_id = response['url'].slice(0, -1);
             planet_id = planet_id.substring(planet_id.lastIndexOf('/') + 1);
@@ -37,10 +36,6 @@ function create_table(data, user_name) {
 
 function voteButton(user_name, planet_data) {
     if (user_name != "Guest") {
-        // console.log(planet_data);
-        // let url = planet_data['url'].slice(0,-1);
-        // let planet_id = url.substring(url.lastIndexOf('/') + 1);
-        // return '<td><button class=\"btn-vote-planet\" type=\"button\" id=\"btn-vote-planet'+ planet_id +'\">Button</button></td>'
         let url = planet_data['url'];
         return '<td><button class=\"btn-vote-planet btn btn-warning\" type=\"button\" data-url=\"' + url + '\">Button</button></td>'
     } else {
@@ -68,7 +63,7 @@ function formattedWaterSurface(evalString) {
 
 
 function formattedDiameter(diameter) {
-    if (diameter === 'unknown'){
+    if (diameter === 'unknown') {
         return 'unknown'
     } else {
         return formatNumber(diameter) + ' km'
@@ -80,6 +75,21 @@ function formatNumber(n) {
         return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
     });
 }
+
+
+function showVoteStats(vote_data) {
+    $.each(vote_data, function (index) {
+        let planet = vote_data[index].planet_name;
+        let count = vote_data[index].count;
+        let row =
+            '<tr>' +
+            '<td>' + planet + '</td>' +
+            '<td>' + count + '</td>' +
+            '</tr>';
+        $('#vote_detail_modal').append(row);
+    })
+    $('#voteModal').modal('show');
+};
 
 function showResidentsDetails(clicked_button_id, data) {
     let residents = data[clicked_button_id]['residents'];
@@ -127,9 +137,9 @@ function main() {
         createWebpage(sessionStorage.getItem(['next_url']));
     });
     $('#show_stats').click(function () {
-        $('#voteModal').modal('show');
+        $('#vote_detail_modal').empty();
         $.getJSON('http://0.0.0.0:8000/vote-stats', function (response) {
-            console.log(response);
+            showVoteStats(response);
         })
     })
     createWebpage(default_url);
@@ -144,18 +154,19 @@ function createWebpage(api_url) {
     $.getJSON(api_url, function (response) {
             var prev_url = response['previous'];
             sessionStorage.setItem(['prev_url'], prev_url);
-            if (prev_url === null){
+            if (prev_url === null) {
                 $('#btn_prev').prop('disabled', true);
             }
             var next_url = response['next'];
             sessionStorage.setItem(['next_url'], next_url);
-            if (next_url === null){
+            if (next_url === null) {
                 $('#btn_next').prop('disabled', true);
             }
             var data = response['results'];
             $('#residentsModal').modal({show: false});
             $('#voteModal').modal({show: false});
-            create_table(data);
+            let username = $('.username').text();
+            create_table(data, username);
         }
     )
 }
